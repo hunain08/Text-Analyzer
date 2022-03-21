@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import "./App.css";
+import React, { useState } from "react";
+import Toggle from "../src/Toggle";
+import Form from "../src/Form";
+import { createTheme, ThemeProvider } from "@material-ui/core";
+import Navbar from '../src/Navbar'
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#7B241C",
+        },
+        secondary:{
+            main:"#fff"
+        }
+    },
+});
+
+const App = () => {
+    const [text, setText] = useState("");
+    const [checked, setChecked] = React.useState("false");
+
+    const toggleChecked = () => {
+        setChecked((prev) => !prev);
+    };
+
+    return (
+        <ThemeProvider theme={theme}>
+            <div
+                style={{ height: "100vh" }}
+                className={checked ? "App d-color" : "App l-color"}>
+                <Navbar checked={checked} toggle={toggleChecked}/>
+                <br />
+               
+                <Form text={text} setText={setText} />
+            </div>
+        </ThemeProvider>
+    );
+};
 
 export default App;
